@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="96" fill="#FF8C42"/>
+  
+  <!-- Ears (behind head) -->
+  <path d="M38,72 C28,48 24,28 38,22 C50,17 58,42 62,58" fill="#FFD4A8"/>
+  <path d="M162,72 C172,48 176,28 162,22 C150,17 142,42 138,58" fill="#FFD4A8"/>
+  <!-- Ear inner -->
+  <path d="M40,68 C30,48 26,30 38,24 C48,19 56,42 60,56" fill="#FFFAF5"/>
+  <path d="M160,68 C170,48 174,30 162,24 C152,19 144,42 140,56" fill="#FFFAF5"/>
+  
+  <!-- Head shape -->
+  <ellipse cx="100" cy="98" rx="52" ry="56" fill="#FFFAF5"/>
+  
+  <!-- Muzzle area -->
+  <ellipse cx="100" cy="120" rx="32" ry="28" fill="#FFD4A8"/>
+  
+  <!-- Eyes -->
+  <ellipse cx="82" cy="82" rx="9" ry="10" fill="#2D1B08"/>
+  <ellipse cx="118" cy="82" rx="9" ry="10" fill="#2D1B08"/>
+  <!-- Eye shine -->
+  <circle cx="78" cy="79" r="3.5" fill="#FFFAF5"/>
+  <circle cx="122" cy="79" r="3.5" fill="#FFFAF5"/>
+  
+  <!-- Nose -->
+  <ellipse cx="100" cy="106" rx="11" ry="8" fill="#2D1B08"/>
+  <ellipse cx="100" cy="103" rx="3.5" ry="1.8" fill="#FFB347" opacity="0.4"/>
+  
+  <!-- Nose to mouth line -->
+  <path d="M100,114 L100,122" stroke="#2D1B08" stroke-width="2.2" stroke-linecap="round"/>
+  
+  <!-- Mouth smile -->
+  <path d="M84,124 Q100,140 116,124" stroke="#2D1B08" stroke-width="2.8" stroke-linecap="round" fill="none"/>
+  
+  <!-- Tongue -->
+  <path d="M98,132 Q104,152 112,156 Q118,152 112,140 Q106,134 100,130" fill="#FF5E78"/>
+  
+  <!-- Cheek blush -->
+  <circle cx="66" cy="110" r="11" fill="#FF5E78" opacity="0.18"/>
+  <circle cx="134" cy="110" r="11" fill="#FF5E78" opacity="0.18"/>
+</svg>
