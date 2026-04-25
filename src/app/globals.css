@@ -45,7 +45,7 @@
   --font-sans: "Nunito", system-ui, sans-serif;
 }
 
-/* ── Light mode override ── */
+/* ── Light values (shared by media query and data-theme) ── */
 @media (prefers-color-scheme: light) {
   :root {
     --doggram-cream:      #fffaf5;
@@ -56,6 +56,27 @@
     --doggram-brown-soft: #9e8a76;
     --doggram-border:     #f0e6d8;
   }
+}
+
+/* ── Manual theme override (higher specificity than media query) ── */
+:root[data-theme="light"] {
+  --doggram-cream:      #fffaf5;
+  --doggram-warm-white: #fff5eb;
+  --doggram-surface:    #fdf6ef;
+  --doggram-brown-dark: #2d1b08;
+  --doggram-brown-mid:  #5c3d1e;
+  --doggram-brown-soft: #9e8a76;
+  --doggram-border:     #f0e6d8;
+}
+
+:root[data-theme="dark"] {
+  --doggram-cream:      #0a0a0a;
+  --doggram-warm-white: #111111;
+  --doggram-surface:    #1a1a1a;
+  --doggram-brown-dark: #f0ece8;
+  --doggram-brown-mid:  #a09080;
+  --doggram-brown-soft: #7a7270;
+  --doggram-border:     #242220;
 }
 
 body {

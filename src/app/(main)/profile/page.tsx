@@ -113,9 +113,7 @@ export default function ProfilePage() {
 
       {/* ── Avatar overlapping cover ── */}
       <div className="px-4 -mt-11 flex items-end justify-between mb-3">
-        <div className="p-1 rounded-full bg-doggram-cream">
-          <Avatar src={profile.avatar_url} alt={profile.dog_name} size="xl" />
-        </div>
+        <Avatar src={profile.avatar_url} alt={profile.dog_name} size="xl" />
         <Link href="/edit-profile" className="mb-1">
           <Button variant="secondary" size="sm">
             Editar perfil

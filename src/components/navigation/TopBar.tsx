@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Heart, MessageCircle, Trophy } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export function TopBar() {
   return (
@@ -8,7 +9,11 @@ export function TopBar() {
         {/* Logo */}
         <Link href="/feed" className="flex items-center gap-1.5 select-none group">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/doggram-logo.svg" alt="Doggram" className="w-8 h-8 transition-transform duration-200 group-active:scale-90" />
+          <img
+            src="/doggram-logo.svg"
+            alt="Doggram"
+            className="w-8 h-8 transition-transform duration-200 group-active:scale-90"
+          />
           <span
             className="font-black text-transparent bg-clip-text bg-gradient-to-r from-doggram-orange to-doggram-amber"
             style={{ fontSize: 22 }}
@@ -19,6 +24,8 @@ export function TopBar() {
 
         {/* Actions */}
         <div className="flex items-center gap-0.5">
+          <ThemeToggle />
+
           <Link
             href="/ranking"
             className="p-2.5 rounded-xl text-doggram-brown-soft hover:text-doggram-amber hover:bg-doggram-amber/12 active:scale-90 transition-all duration-200"

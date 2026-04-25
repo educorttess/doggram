@@ -16,6 +16,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR" className="h-full">
+      <head>
+        {/* Apply saved theme before first paint — prevents flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('doggram-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t);}}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col antialiased">{children}</body>
     </html>
   );
