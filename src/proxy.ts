@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC_ROUTES = ["/login", "/register"];
+const PUBLIC_ROUTES = ["/login", "/register", "/auth/callback"];
 const AUTH_SETUP_ROUTE = "/setup-profile";
 
 export async function proxy(request: NextRequest) {
@@ -38,6 +38,7 @@ export async function proxy(request: NextRequest) {
   if (!user && !isPublicRoute && !isRootRoute) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/login";
+    redirectUrl.search = "";
     return NextResponse.redirect(redirectUrl);
   }
 
