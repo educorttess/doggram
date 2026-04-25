@@ -65,6 +65,7 @@ export default function PublicProfilePage() {
   const [postsLoading, setPostsLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
   const [followersCount, setFollowersCount] = useState(0);
+  const [followingCount, setFollowingCount] = useState(0);
   const [startingChat, setStartingChat] = useState(false);
   const [followModal, setFollowModal] = useState<"followers" | "following" | null>(null);
 
@@ -90,6 +91,7 @@ export default function PublicProfilePage() {
         }
         setProfile(data as Profile);
         setFollowersCount((data as Profile).followers_count);
+        setFollowingCount((data as Profile).following_count);
       } catch {
         setNotFound(true);
       } finally {
@@ -122,8 +124,11 @@ export default function PublicProfilePage() {
 
   const handleFollow = useCallback(async () => {
     const wasFollowing = following;
-    await toggleFollow();
     setFollowersCount((c) => (wasFollowing ? c - 1 : c + 1));
+    const { success } = await toggleFollow();
+    if (!success) {
+      setFollowersCount((c) => (wasFollowing ? c + 1 : c - 1));
+    }
   }, [following, toggleFollow]);
 
   const isOwnProfile = !!myProfile && !!profile && myProfile.id === profile.id;
@@ -220,7 +225,7 @@ export default function PublicProfilePage() {
           {[
             { label: "posts", value: posts.length, onClick: null },
             { label: "seguidores", value: followersCount, onClick: () => setFollowModal("followers") },
-            { label: "seguindo", value: profile.following_count, onClick: () => setFollowModal("following") },
+            { label: "seguindo", value: followingCount, onClick: () => setFollowModal("following") },
           ].map((s) =>
             s.onClick ? (
               <button

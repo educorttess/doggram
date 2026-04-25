@@ -40,9 +40,9 @@ export function useFollow(targetProfileId: string) {
     init();
   }, [targetProfileId]);
 
-  const toggle = useCallback(async () => {
+  const toggle = useCallback(async (): Promise<{ success: boolean }> => {
     const myId = myProfileIdRef.current;
-    if (!myId || pendingRef.current || myId === targetProfileId) return;
+    if (!myId || pendingRef.current || myId === targetProfileId) return { success: false };
     pendingRef.current = true;
 
     const wasFollowing = following;
@@ -61,8 +61,10 @@ export function useFollow(targetProfileId: string) {
           .from("follows")
           .insert({ follower_id: myId, following_id: targetProfileId });
       }
+      return { success: true };
     } catch {
       setFollowing(wasFollowing);
+      return { success: false };
     } finally {
       pendingRef.current = false;
     }
