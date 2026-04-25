@@ -100,11 +100,12 @@ export default function ProfilePage() {
       )}
 
       {/* ── Cover ── */}
-      <div className="relative h-28 overflow-hidden bg-doggram-surface">
+      {/* overflow-hidden removido: gradients são inset-0 e não overflow;
+          mantê-lo criava stacking context que pintava os gradients sobre o avatar */}
+      <div className="relative h-28 bg-doggram-surface">
         <div className="absolute inset-0 bg-gradient-to-br from-doggram-orange/40 via-doggram-amber/25 to-doggram-surface" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,140,66,0.3),transparent_60%)]" />
-        {/* Settings icon in cover */}
-        <Link href="/edit-profile" className="absolute top-3 right-3">
+        <Link href="/edit-profile" className="absolute top-3 right-3 z-10">
           <button className="p-2 rounded-xl bg-black/30 backdrop-blur-sm text-white hover:bg-black/50 transition-colors active:scale-90">
             <Settings size={18} />
           </button>
@@ -112,7 +113,8 @@ export default function ProfilePage() {
       </div>
 
       {/* ── Avatar overlapping cover ── */}
-      <div className="px-4 -mt-11 flex items-end justify-between mb-3">
+      {/* relative z-10 garante que o avatar pinta acima dos gradients da cover */}
+      <div className="px-4 -mt-11 flex items-end justify-between mb-3 relative z-10">
         <Avatar src={profile.avatar_url} alt={profile.dog_name} size="xl" />
         <Link href="/edit-profile" className="mb-1">
           <Button variant="secondary" size="sm">
