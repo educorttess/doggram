@@ -46,7 +46,7 @@ export function Input({
           type={inputType}
           value={value}
           className={[
-            "w-full bg-doggram-warm-white border rounded-2xl py-3 pr-4 text-sm font-medium text-doggram-brown-dark placeholder:text-doggram-brown-soft outline-none transition-all duration-200",
+            "w-full bg-doggram-surface border rounded-2xl py-3 pr-4 text-sm font-medium text-doggram-brown-dark placeholder:text-doggram-brown-soft outline-none transition-all duration-200",
             leftIcon ? "pl-10" : "pl-4",
             isPassword ? "pr-11" : "",
             error
@@ -105,7 +105,7 @@ export function Textarea({ label, error, maxChars, className = "", value, ...pro
       <textarea
         value={value}
         className={[
-          "w-full bg-doggram-warm-white border rounded-2xl py-3 px-4 text-sm font-medium text-doggram-brown-dark placeholder:text-doggram-brown-soft outline-none transition-all duration-200 resize-none",
+          "w-full bg-doggram-surface border rounded-2xl py-3 px-4 text-sm font-medium text-doggram-brown-dark placeholder:text-doggram-brown-soft outline-none transition-all duration-200 resize-none",
           error
             ? "border-doggram-error focus:ring-2 focus:ring-doggram-error/30"
             : "border-doggram-border focus:border-doggram-orange focus:ring-2 focus:ring-doggram-orange/20",

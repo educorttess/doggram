@@ -62,9 +62,10 @@ export function PostCard({
     lastTapRef.current = now;
   }, [liked, toggleLike]);
 
-  const postUrl = typeof window !== "undefined"
-    ? `${window.location.origin}/post/${post.id}`
-    : `/post/${post.id}`;
+  const postUrl =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/post/${post.id}`
+      : `/post/${post.id}`;
 
   const handleCopyLink = useCallback(async () => {
     await navigator.clipboard.writeText(postUrl);
@@ -76,37 +77,50 @@ export function PostCard({
     try {
       await navigator.share({ title: `${post.profile.dog_name} no Doggram`, url: postUrl });
     } catch {
-      // user cancelled or not supported
+      // cancelled or unsupported
     }
     setShowShareMenu(false);
   }, [post.profile.dog_name, postUrl]);
 
-  const handleCommentCountChange = useCallback((delta: number) => {
-    setCommentCount((c) => c + delta);
-    onCommentCountChange?.(post.id, delta);
-  }, [onCommentCountChange, post.id]);
+  const handleCommentCountChange = useCallback(
+    (delta: number) => {
+      setCommentCount((c) => c + delta);
+      onCommentCountChange?.(post.id, delta);
+    },
+    [onCommentCountChange, post.id]
+  );
 
   const caption = post.caption ?? "";
   const isLongCaption = caption.length > 120;
-  const displayCaption = isLongCaption && !captionExpanded
-    ? caption.slice(0, 120) + "…"
-    : caption;
+  const displayCaption =
+    isLongCaption && !captionExpanded ? caption.slice(0, 120) + "…" : caption;
 
   return (
     <>
       <article className="bg-doggram-warm-white border-b border-doggram-border">
         {/* ── Header ── */}
         <div className="flex items-center justify-between px-3 py-2.5">
-          <Link href={`/${post.profile.username}`} className="flex items-center gap-2.5">
-            <Avatar src={post.profile.avatar_url} alt={post.profile.dog_name} size="md" />
+          <Link
+            href={`/${post.profile.username}`}
+            className="flex items-center gap-2.5 group"
+          >
+            {/* Gradient border on every post avatar */}
+            <Avatar
+              src={post.profile.avatar_url}
+              alt={post.profile.dog_name}
+              size="md"
+              gradientBorder
+            />
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-sm font-bold text-doggram-brown-dark leading-tight">
+                <span className="text-sm font-bold text-doggram-brown-dark leading-tight group-hover:text-doggram-orange transition-colors">
                   {post.profile.dog_name}
                 </span>
-                {post.profile.is_verified && <Badge variant="verified">Pro</Badge>}
+                {post.profile.is_verified && (
+                  <Badge variant="verified">Pro</Badge>
+                )}
                 {post.is_suggested && (
-                  <span className="text-[10px] font-semibold text-doggram-brown-soft bg-doggram-cream border border-doggram-border rounded-full px-2 py-0.5">
+                  <span className="text-[10px] font-semibold text-doggram-brown-soft bg-doggram-surface border border-doggram-border rounded-full px-2 py-0.5">
                     Sugerido
                   </span>
                 )}
@@ -119,21 +133,21 @@ export function PostCard({
             </div>
           </Link>
 
-          <button className="p-2 -mr-1 rounded-xl text-doggram-brown-soft hover:text-doggram-brown-dark transition-colors">
+          <button className="p-2 -mr-1 rounded-xl text-doggram-brown-soft hover:text-doggram-brown-dark hover:bg-doggram-surface transition-all duration-150 active:scale-90">
             <MoreHorizontal size={20} />
           </button>
         </div>
 
         {/* ── Image (1:1) ── */}
         <div
-          className="relative aspect-square w-full bg-doggram-border overflow-hidden cursor-pointer select-none"
+          className="relative aspect-square w-full bg-doggram-surface overflow-hidden cursor-pointer select-none"
           onClick={handleDoubleTap}
         >
           <Image
             src={post.image_url}
             alt={caption || `Foto de ${post.profile.dog_name}`}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-300 hover:scale-[1.02]"
             sizes="(max-width: 512px) 100vw, 512px"
             priority={false}
           />
@@ -143,7 +157,7 @@ export function PostCard({
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <Heart
                 size={96}
-                className="animate-heart-pop text-doggram-coral fill-doggram-coral drop-shadow-lg"
+                className="animate-heart-pop text-doggram-coral fill-doggram-coral drop-shadow-2xl"
               />
             </div>
           )}
@@ -164,11 +178,11 @@ export function PostCard({
         {/* ── Share menu ── */}
         {showShareMenu && (
           <div
-            className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-end justify-center bg-black/60 backdrop-blur-sm"
             onClick={() => setShowShareMenu(false)}
           >
             <div
-              className="w-full max-w-sm mx-3 mb-6 rounded-2xl overflow-hidden bg-doggram-warm-white shadow-xl"
+              className="w-full max-w-sm mx-3 mb-6 rounded-2xl overflow-hidden bg-doggram-surface border border-doggram-border shadow-warm-md animate-slide-up"
               onClick={(e) => e.stopPropagation()}
             >
               <p className="text-center text-sm font-bold text-doggram-brown-dark pt-4 pb-2 border-b border-doggram-border">
@@ -177,7 +191,7 @@ export function PostCard({
 
               <button
                 onClick={handleCopyLink}
-                className="flex items-center gap-3 w-full px-5 py-4 text-sm font-semibold text-doggram-brown-dark hover:bg-doggram-cream transition-colors border-b border-doggram-border"
+                className="flex items-center gap-3 w-full px-5 py-4 text-sm font-semibold text-doggram-brown-dark hover:bg-doggram-warm-white transition-colors border-b border-doggram-border"
               >
                 {copyFeedback ? (
                   <Check size={20} className="text-doggram-success" />
@@ -190,7 +204,7 @@ export function PostCard({
               {typeof navigator !== "undefined" && "share" in navigator && (
                 <button
                   onClick={handleWebShare}
-                  className="flex items-center gap-3 w-full px-5 py-4 text-sm font-semibold text-doggram-brown-dark hover:bg-doggram-cream transition-colors border-b border-doggram-border"
+                  className="flex items-center gap-3 w-full px-5 py-4 text-sm font-semibold text-doggram-brown-dark hover:bg-doggram-warm-white transition-colors border-b border-doggram-border"
                 >
                   <Share2 size={20} className="text-doggram-brown-soft" />
                   Compartilhar via…
@@ -216,7 +230,7 @@ export function PostCard({
               {isLongCaption && !captionExpanded && (
                 <button
                   onClick={() => setCaptionExpanded(true)}
-                  className="ml-1 text-doggram-brown-soft font-semibold"
+                  className="ml-1 text-doggram-brown-soft font-semibold hover:text-doggram-orange transition-colors"
                 >
                   ver mais
                 </button>

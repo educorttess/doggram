@@ -3,48 +3,59 @@
 @import "tailwindcss";
 
 :root {
-  /* Doggram color palette */
-  --doggram-orange: #ff8c42;
-  --doggram-amber: #ffb347;
-  --doggram-cream: #fffaf5;
-  --doggram-warm-white: #fff5eb;
-  --doggram-brown-dark: #2d1b08;
-  --doggram-brown-mid: #5c3d1e;
-  --doggram-brown-soft: #9e8a76;
-  --doggram-border: #f0e6d8;
-  --doggram-coral: #ff5e78;
-  --doggram-success: #4caf50;
-  --doggram-error: #e8453c;
+  /* Doggram — dark mode as default */
+  --doggram-orange:     #ff8c42;
+  --doggram-amber:      #ffb347;
+  --doggram-cream:      #0a0a0a;      /* main background   */
+  --doggram-warm-white: #111111;      /* card surface      */
+  --doggram-surface:    #1a1a1a;      /* elevated surface  */
+  --doggram-brown-dark: #f0ece8;      /* primary text      */
+  --doggram-brown-mid:  #a09080;      /* secondary text    */
+  --doggram-brown-soft: #7a7270;      /* muted text        */
+  --doggram-border:     #242220;      /* borders           */
+  --doggram-coral:      #ff5e78;
+  --doggram-success:    #4caf50;
+  --doggram-error:      #e8453c;
 
   /* Typography scale */
-  --text-caption: 11px;
-  --text-small: 13px;
-  --text-body: 14px;
+  --text-caption:  11px;
+  --text-small:    13px;
+  --text-body:     14px;
   --text-subtitle: 16px;
-  --text-title: 20px;
-  --text-logo: 26px;
+  --text-title:    20px;
+  --text-logo:     26px;
 }
 
 @theme inline {
-  /* Colors */
-  --color-doggram-orange: var(--doggram-orange);
-  --color-doggram-amber: var(--doggram-amber);
-  --color-doggram-cream: var(--doggram-cream);
+  --color-doggram-orange:     var(--doggram-orange);
+  --color-doggram-amber:      var(--doggram-amber);
+  --color-doggram-cream:      var(--doggram-cream);
   --color-doggram-warm-white: var(--doggram-warm-white);
+  --color-doggram-surface:    var(--doggram-surface);
   --color-doggram-brown-dark: var(--doggram-brown-dark);
-  --color-doggram-brown-mid: var(--doggram-brown-mid);
+  --color-doggram-brown-mid:  var(--doggram-brown-mid);
   --color-doggram-brown-soft: var(--doggram-brown-soft);
-  --color-doggram-border: var(--doggram-border);
-  --color-doggram-coral: var(--doggram-coral);
-  --color-doggram-success: var(--doggram-success);
-  --color-doggram-error: var(--doggram-error);
+  --color-doggram-border:     var(--doggram-border);
+  --color-doggram-coral:      var(--doggram-coral);
+  --color-doggram-success:    var(--doggram-success);
+  --color-doggram-error:      var(--doggram-error);
 
-  /* Background & foreground */
   --color-background: var(--doggram-cream);
   --color-foreground: var(--doggram-brown-dark);
-
-  /* Font */
   --font-sans: "Nunito", system-ui, sans-serif;
+}
+
+/* ── Light mode override ── */
+@media (prefers-color-scheme: light) {
+  :root {
+    --doggram-cream:      #fffaf5;
+    --doggram-warm-white: #fff5eb;
+    --doggram-surface:    #fdf6ef;
+    --doggram-brown-dark: #2d1b08;
+    --doggram-brown-mid:  #5c3d1e;
+    --doggram-brown-soft: #9e8a76;
+    --doggram-border:     #f0e6d8;
+  }
 }
 
 body {
@@ -56,32 +67,48 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Utility: warm shadow */
+/* ── Shadows ── */
 .shadow-warm {
-  box-shadow: 0 2px 12px rgba(255, 140, 66, 0.12);
+  box-shadow: 0 2px 16px rgba(255, 140, 66, 0.18);
 }
-
 .shadow-warm-md {
-  box-shadow: 0 4px 20px rgba(255, 140, 66, 0.18);
+  box-shadow: 0 4px 28px rgba(255, 140, 66, 0.24);
+}
+.glow-orange {
+  box-shadow: 0 0 40px rgba(255, 140, 66, 0.25), 0 0 80px rgba(255, 140, 66, 0.08);
 }
 
-/* Utility: orange gradient */
+/* ── Gradient util ── */
 .gradient-doggram {
   background: linear-gradient(135deg, var(--doggram-orange), var(--doggram-amber));
 }
 
-/* Heart pop animation — double-tap to like */
+/* ── Scrollbar ── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Heart pop (double-tap like) ── */
 @keyframes heart-pop {
   0%   { transform: scale(0) rotate(-15deg); opacity: 1; }
   40%  { transform: scale(1.35) rotate(5deg); opacity: 1; }
   70%  { transform: scale(1.1) rotate(-3deg); opacity: 1; }
-  100% { transform: scale(1.2) rotate(0); opacity: 0; }
+  100% { transform: scale(1.2) rotate(0);    opacity: 0; }
 }
 .animate-heart-pop {
   animation: heart-pop 0.75s ease forwards;
 }
 
-/* Slide-up drawer */
+/* ── Like bounce ── */
+@keyframes like-bounce {
+  0%, 100% { transform: scale(1); }
+  30%       { transform: scale(1.35); }
+  60%       { transform: scale(0.9); }
+}
+.animate-like-bounce {
+  animation: like-bounce 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Slide-up drawer ── */
 @keyframes slide-up {
   from { transform: translateY(100%); }
   to   { transform: translateY(0); }
@@ -90,20 +117,42 @@ body {
   animation: slide-up 0.3s cubic-bezier(0.32, 0.72, 0, 1) forwards;
 }
 
-/* Fade in */
+/* ── Fade in ── */
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-in {
-  animation: fade-in 0.2s ease forwards;
+  animation: fade-in 0.22s ease forwards;
 }
 
-/* Hide scrollbar but allow scroll */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* ── Float (landing decorative) ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px)   rotate(0deg); }
+  33%       { transform: translateY(-14px) rotate(4deg); }
+  66%       { transform: translateY(-7px)  rotate(-2deg); }
+}
+.animate-float       { animation: float  7s ease-in-out        infinite; }
+.animate-float-delay { animation: float  9s ease-in-out   1.5s infinite; }
+.animate-float-slow  { animation: float 11s ease-in-out     3s infinite; }
 
-/* ── PawMatch swipe animations ── */
+/* ── Shimmer skeleton ── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--doggram-surface) 25%,
+    var(--doggram-border)  50%,
+    var(--doggram-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+/* ── PawMatch swipe ── */
 @keyframes swipe-right {
   0%   { transform: translateX(0)     rotate(0deg);  opacity: 1; }
   100% { transform: translateX(130%)  rotate(22deg); opacity: 0; }
@@ -128,17 +177,4 @@ body {
   0%   { transform: translateY(-24px) rotate(0deg);   opacity: 1; }
   80%  { opacity: 0.75; }
   100% { transform: translateY(110vh) rotate(680deg); opacity: 0; }
-}
-/* Duration/delay applied via inline style on each piece */
-
-/* ── Dark mode ── */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --doggram-cream: #1a1009;
-    --doggram-warm-white: #241612;
-    --doggram-brown-dark: #f2dfc8;
-    --doggram-brown-mid: #c4a07a;
-    --doggram-brown-soft: #7a6550;
-    --doggram-border: #3d2416;
-  }
 }
